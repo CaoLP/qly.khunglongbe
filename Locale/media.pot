@@ -1,0 +1,138 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /Media.php:53
+msgid "Le model '%s' n'a pas le comportement 'Media'"
+msgstr ""
+
+#: /Media.php:68
+msgid "Vous ne pouvez pas uploader ce type de fichier (%s seulement)"
+msgstr ""
+
+#: /Media.php:76
+msgid "Vous ne pouvez envoyer qu'un nombre limité de fichier (%d). Veuillez en supprimer avant d'en envoyer de nouveau."
+msgstr ""
+
+#: /Media.php:85
+msgid "La largeur maximum autorisée est de %dpx"
+msgstr ""
+
+#: /Media.php:89
+msgid "La hauteur maximum autorisée est de %dpx"
+msgstr ""
+
+#: /Media.php:97
+msgid "Vous ne pouvez pas envoyer un fichier supérieur à %s"
+msgstr ""
+
+#: /Medias/index.ctp:9
+#: /Medias/media.ctp:27
+msgid "Nom du fichier"
+msgstr ""
+
+#: /Medias/index.ctp:15
+#: /Medias/media.ctp:34
+msgid "Titre"
+msgstr ""
+
+#: /Medias/index.ctp:19
+#: /Medias/media.ctp:38
+msgid "Texte alternatif"
+msgstr ""
+
+#: /Medias/index.ctp:23
+#: /Medias/media.ctp:42
+msgid "Cible du lien"
+msgstr ""
+
+#: /Medias/index.ctp:27
+#: /Medias/media.ctp:46
+msgid "Alignement"
+msgstr ""
+
+#: /Medias/index.ctp:30
+msgid "Aucun"
+msgstr ""
+
+#: /Medias/index.ctp:33
+msgid "Gauche"
+msgstr ""
+
+#: /Medias/index.ctp:36
+msgid "Centre"
+msgstr ""
+
+#: /Medias/index.ctp:39
+msgid "Droite"
+msgstr ""
+
+#: /Medias/index.ctp:45
+#: /Medias/media.ctp:64
+msgid "Insérer dans l'article"
+msgstr ""
+
+#: /Medias/index.ctp:54
+msgid "Déplacer les fichiers ici"
+msgstr ""
+
+#: /Medias/index.ctp:55
+msgid "ou"
+msgstr ""
+
+#: /Medias/index.ctp:56
+msgid "Parcourir"
+msgstr ""
+
+#: /Medias/index.ctp:57
+msgid "%s seulement"
+msgstr ""
+
+#: /Medias/index.ctp:63
+msgid "Médias"
+msgstr ""
+
+#: /Medias/index.ctp:65
+msgid "Actions"
+msgstr ""
+
+#: /Medias/index.ctp:157
+msgid "Voulez vous vraiment supprimer ce média ?"
+msgstr ""
+
+#: /Medias/index.ctp:169;178
+#: /Medias/media.ctp:18
+msgid "Afficher"
+msgstr ""
+
+#: /Medias/index.ctp:170
+msgid "Cacher"
+msgstr ""
+
+#: /Medias/media.ctp:11
+msgid "Mettre en image à la une"
+msgstr ""
+
+#: /Medias/media.ctp:13;64
+msgid "Supprimer"
+msgstr ""
+
+#: /Medias/media.ctp:16
+msgid "Insérer le lien l'article"
+msgstr ""
+
+#: /Medias/media.ctp:28
+msgid "Taille de l'image"
+msgstr ""
+
