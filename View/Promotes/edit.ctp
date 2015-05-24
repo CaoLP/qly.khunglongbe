@@ -52,6 +52,14 @@
 				<div class="form-group">
 					<?php echo $this->Form->input('global', array('class' => 'form-control', 'placeholder' => 'Global'));?>
 				</div>
+                <div class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><?php echo __('Images') ?></div>
+                        <div class="panel-body">
+                            <?php echo $this->Media->iframe('Promote', $this->request->data['Promote']['id']); ?>
+                        </div>
+                    </div>
+                </div>
         				<div class="form-group">
 					<?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-default')); ?>
 				</div>

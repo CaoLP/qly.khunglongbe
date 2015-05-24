@@ -14,6 +14,7 @@ class PromotesController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
+    public $helpers = array('Media');
 
 /**
  * index method
@@ -22,6 +23,9 @@ class PromotesController extends AppController {
  */
 	public function index() {
 		$this->Promote->recursive = 0;
+        $this->Paginator->settings = array(
+            'contain' => array('Thumb')
+        );
 		$this->set('promotes', $this->Paginator->paginate());
 	}
 
