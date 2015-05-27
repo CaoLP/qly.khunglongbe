@@ -78,7 +78,7 @@ class MediasController extends AppController{
     /**
     * Upload (Ajax)
     **/
-    public function upload($ref,$ref_id){
+    public function upload($ref,$ref_id,$mo = false){
         $this->autoRender = false;
         if(!$this->canUploadMedias($ref, $ref_id)){
             throw new ForbiddenException();
@@ -100,6 +100,9 @@ class MediasController extends AppController{
         $id = isset($this->request->query['id']) ? $this->request->query['id'] : false;
         $this->set(compact('media', 'thumbID', 'editor', 'id'));
         $this->layout = 'json';
+        if($mo)
+        $this->render('media2');
+        else
         $this->render('media');
         return true;
     }

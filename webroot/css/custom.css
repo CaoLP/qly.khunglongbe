@@ -87,3 +87,26 @@ span.title-option {
 .m-b-0{
   margin-bottom: 0;
 }
+#droparea{
+    border: 4px solid #9f9f9f;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.dropping{
+    border: 4px dashed #52bdff !important;
+
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    transition: 0.5s ease;
+
+}
+#filelist .visu{
+    height: 250px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+#filelist .item {
+}

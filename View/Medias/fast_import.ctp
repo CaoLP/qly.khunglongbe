@@ -1,33 +1,26 @@
-<div class="bloc">
-    <div class="content">
-		<div id="plupload">
-		    <div id="droparea" href="#">
-		    	<p><?php echo __d('media',"Déplacer les fichiers ici"); ?></p>
-		    	<?php echo __d('media',"ou"); ?><br/>
-		    	<a id="browse" href="#"><?php echo __d('media',"Parcourir"); ?></a>
-		    	<p class="small">(<?php echo __d('media','%s seulement',implode(', ', $extensions)); ?>)</p>
-		    </div>
-		</div>
-		<table class="head" cellspacing="0">
-			<thead>
-				<tr>
-					<th style="width:55%"><?php echo __d('media',"Médias"); ?></th>
-					<th style="width:20%"> &nbsp; </th>
-					<th style="width:25%"><?php echo __d('media',"Actions"); ?></th>
-				</tr>
-			</thead>
-		</table>
-		<div id="filelist">
-			<?php echo $this->Form->create('Media',array('url'=>array('controller'=>'medias','action'=>'order'))); ?>
-			<?php foreach($medias as $media): $media = current($media);  ?>
-				<?php require('media.ctp'); ?>
-			<?php endforeach; ?>
-			<?php echo $this->Form->end(); ?>
-		</div>
-
+<div class="panel-heading">
+    <h3 class="panel-title">
+        <a href="javascript:void(0);" class="toggle-sidebar">
+            <span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>
+        <?php echo __('Thêm hàng nhanh'); ?>    </h3>
+</div>
+<div class="panel-body">
+<div id="plupload" class="col-md-12">
+    <div id="droparea" href="#">
+        <h3><?php echo __d('media',"Déplacer les fichiers ici"); ?></h3>
+        <?php echo __d('media',"ou"); ?><br/>
+        <a id="browse" href="#" class="btn btn-info"><?php echo __d('media',"Parcourir"); ?></a>
+        <p class="small">(<?php echo __d('media','%s seulement',implode(', ', $extensions)); ?>)</p>
     </div>
 </div>
-
+<div id="filelist" class="col-md-12">
+    <?php echo $this->Form->create('Media',array('url'=>array('controller'=>'medias','action'=>'order'))); ?>
+    <?php foreach($medias as $media): $media = current($media);  ?>
+        <?php require('media2.ctp'); ?>
+    <?php endforeach; ?>
+    <?php echo $this->Form->end(); ?>
+</div>
+</div>
 <?php $this->Html->script('jquery.form.js',array('inline'=>false)); ?>
 <?php $this->Html->script('plupload.js',array('inline'=>false)); ?>
 <?php $this->Html->script('plupload.html5.js',array('inline'=>false)); ?>
@@ -36,17 +29,6 @@
 
 
 jQuery(function(){
-	$( "#filelist>form" ).sortable({
-		update:function(){
-			i = 0;
-			$('#filelist>form>div').each(function(){
-				i++;
-				$(this).find('input').val(i);
-			});
-			$('#MediaIndexForm').ajaxSubmit();
-		}
-	});
-
 	var theFrame = $("#medias-<?php echo $ref; ?>-<?php echo $ref_id; ?>", parent.document.body);
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash',
@@ -54,7 +36,7 @@ jQuery(function(){
 		browse_button : 'browse',
 		max_file_size : '50mb',
 		flash_swf_url : '<?php echo Router::url('/media/js/plupload.flash.swf'); ?>',
-		url : '<?php echo Router::url(array('controller'=>'medias','action'=>'upload',$ref,$ref_id,'editor'=>$editor,'?' => "id=$id")); ?>',
+		url : '<?php echo Router::url(array('controller'=>'medias','action'=>'upload',$ref,$ref_id,true,'editor'=>$editor,'?' => "id=$id")); ?>',
 		 filters : [
 			{title : "Accepted files", extensions : "<?php echo implode(',', $extensions); ?>"},
 		],
@@ -67,7 +49,7 @@ jQuery(function(){
 
 	uploader.bind('FilesAdded', function(up, files) {
 		for (var i in files) {
-			$('#filelist>form').prepend('<div class="item" id="' + files[i].id + '">&nbsp; &nbsp;' + files[i].name + ' (' + plupload.formatSize(files[i].size) + ') <div class="progressbar"><div class="progress"></div></div></div>');
+			$('#filelist>form').append('<div class="item col-md-3 thumbnail" id="' + files[i].id + '">&nbsp; &nbsp;' + files[i].name + ' (' + plupload.formatSize(files[i].size) + ') <div class="progressbar"><div class="progress"></div></div></div>');
 		}
 		uploader.start();
 		$('#droparea').removeClass('dropping');
@@ -152,7 +134,6 @@ jQuery(function(){
 			var item = $this.parents('.item');
 			var type = $('.filetype', item).val();
 			if(type === 'pic') {
-
 				var html = '<img src="'+$('.file', item).val()+'"';
 				if( $('.alt', item).val() != '' ){
 					html += ' alt="'+$('.alt', item).val()+'"';
