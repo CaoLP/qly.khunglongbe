@@ -68,7 +68,7 @@ class ProductsController extends AppController
             'Product' => array(
                 'sku' => '',
                 'provider_id' => '0',
-                'name' => '0',
+                'name' => '',
                 'price' => '0',
                 'retail_price' => '',
                 'source_price' => '',
@@ -78,14 +78,28 @@ class ProductsController extends AppController
                 'category_id' => '0'
             )
         );
+        if(isset($this->request->query['media_id']))
+            $temp['Product']['media_id'] = $this->request->query['media_id'];
+
         $data = $this->Product->find('first',array('conditions'=>array('Product.sku'=>'')));
         if($data){
             $id = $data['Product']['id'];
         }else{
             $this->Product->save($temp);
             $id = $this->Product->id;
+            $this->loadModel('Media');
+            $this->Media->save(array(
+                    'Media' => array(
+                        'id' =>  $this->request->query['media_id'],
+                        'ref_id' => $id
+                    )
+                )
+            );
         }
-        $this->redirect(Router::url(array('action'=>'edit',$id)));
+        if(isset($this->request->query['media_id']))
+            $this->redirect(Router::url(array('action'=>'edit',$id,'?'=>array('media_id'=>$this->request->query['media_id']))));
+        else
+            $this->redirect(Router::url(array('action'=>'edit',$id)));
 //        if ($this->request->is('post')) {
 //            $this->Product->create();
 //            debug($this->request->data);die;
@@ -133,6 +147,9 @@ class ProductsController extends AppController
                 $product_id = $this->Product->id;
                 $this->Product->ProductOption->updateOptions($this->request->data['ProductOption'], $product_id);
                 $this->Session->setFlash(__('The product has been saved.'), 'default', array('class' => 'alert alert-success'));
+                if(isset($this->request->query['media_id'])){
+                    return $this->redirect(array('controller'=>'medias','action' => 'fast_import', 'Product'));
+                }
                 if($this->request->data['submit'] == 'save'){
                     return $this->redirect(array('action' => 'index'));
                 }else{

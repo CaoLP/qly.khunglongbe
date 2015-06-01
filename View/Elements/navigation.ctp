@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand">Shop bé xinh</a>
+            <a href="/" class="navbar-brand"><?php echo Configure::read('Site.title')?></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

@@ -25,6 +25,7 @@
 <?php $this->Html->script('plupload.js',array('inline'=>false)); ?>
 <?php $this->Html->script('plupload.html5.js',array('inline'=>false)); ?>
 <?php $this->Html->script('plupload.flash.js',array('inline'=>false)); ?>
+<?php $this->Html->script('fast_upload.js',array('inline'=>false)); ?>
 <?php $this->Html->scriptStart(array('inline'=>false)); ?>
 
 
@@ -87,7 +88,7 @@ jQuery(function(){
 	$('a.del').live('click',function(e){
 		e.preventDefault();
 		elem = $(this);
-		if(confirm('<?php echo __d('media',"Voulez vous vraiment supprimer ce média ?"); ?>')){
+		if(confirm('<?php echo __d('media',"Bạn có muốn xóa hình này không ?"); ?>')){
 			$.post(elem.attr('href'),{},function(data){
 				elem.parents('.item').slideUp();
 			});
@@ -99,8 +100,8 @@ jQuery(function(){
 		e.preventDefault();
 		var a = $(this);
 		var height = a.parent().parent().find('.expand').outerHeight();
-		if(a.text() == '<?php echo __d('media', "Afficher"); ?>'){
-			a.text('<?php echo __d('media', "Cacher"); ?>');
+		if(a.text() == '<?php echo __d('media', "Hiện"); ?>'){
+			a.text('<?php echo __d('media', "Ẩn"); ?>');
 			a.parent().parent().animate({
 				height : 40 + height
 			});
@@ -108,7 +109,7 @@ jQuery(function(){
 				height : theFrame.height() + height
 			});
 		}else{
-			a.text('<?php echo __d('media', "Afficher"); ?>');
+			a.text('<?php echo __d('media', "Hiện"); ?>');
 			a.parent().parent().animate({
 				height : 40
 			});
@@ -155,3 +156,35 @@ jQuery(function(){
 });
 
 <?php $this->Html->scriptEnd(); ?>
+<!-- Modal -->
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Chọn sản phẩm</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo $this->Html->url(array(
+                    'controller'=>'medias',
+                    'action' => 'update_media'
+                ))?>">
+                    <div class="form-group">
+                        <label for="product_name">Tìm sản phẩm</label>
+                        <input type="text" class="form-control" id="product_name" placeholder="Nhập tên sản phẩm">
+                        <input type="hidden" class="form-control" id="product_id" >
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Làm ảnh đại diện
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>

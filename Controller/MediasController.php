@@ -50,7 +50,7 @@ class MediasController extends AppController{
         $editor = isset($this->request->params['named']['editor']) ? $this->request->params['named']['editor'] : false;
         $this->set(compact('id', 'medias', 'thumbID', 'editor', 'extensions'));
     }
-    public function fast_import($ref){
+    public function fast_import($ref = 'Product'){
         $this->layout = 'media';
 //        if(!$this->canUploadMedias($ref, $ref_id)){
 //            throw new ForbiddenException();
@@ -74,7 +74,9 @@ class MediasController extends AppController{
         $editor = isset($this->request->params['named']['editor']) ? $this->request->params['named']['editor'] : false;
         $this->set(compact('id', 'medias', 'thumbID', 'editor', 'extensions'));
     }
-
+    public function update_media(){
+        die;
+    }
     /**
     * Upload (Ajax)
     **/
