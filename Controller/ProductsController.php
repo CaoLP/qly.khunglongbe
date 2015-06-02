@@ -40,7 +40,33 @@ class ProductsController extends AppController
         );
         $this->set('products', $this->Paginator->paginate());
     }
-
+    public function ajax_index()
+    {
+        if(isset($this->request->query['q'])){
+            $settings = array(
+                'fields'=>array(
+                    'Product.id','Product.name','Product.sku'
+                ),
+                'conditions'=>array(
+                    'Product.name <>' => '0',
+                    'Product.name like' => '%'.$this->request->query['q'].'%'
+                ),
+                'recursive' => -1,
+                'limit'=>10
+            );
+            $products=$this->Product->find('all',$settings);
+            $res = array();
+            foreach($products as $p){
+                $res[] = array(
+                    'value' => $p['Product']['id'],
+                    'label' => $p['Product']['name'],
+                    'sku' =>$p['Product']['sku']
+                );
+            }
+            echo json_encode($res);
+        }
+        die;
+    }
     /**
      * view method
      *
@@ -68,7 +94,7 @@ class ProductsController extends AppController
             'Product' => array(
                 'sku' => '',
                 'provider_id' => '0',
-                'name' => '',
+                'name' => '0',
                 'price' => '0',
                 'retail_price' => '',
                 'source_price' => '',

@@ -74,8 +74,21 @@ class MediasController extends AppController{
         $editor = isset($this->request->params['named']['editor']) ? $this->request->params['named']['editor'] : false;
         $this->set(compact('id', 'medias', 'thumbID', 'editor', 'extensions'));
     }
-    public function update_media(){
-        die;
+    public function update_media($ref = 'Product'){
+       if(!empty($this->request->data['product_id']) && !empty($this->request->data['media_id'])){
+           $this->Media->save(array(
+               'id' => $this->request->data['media_id'],
+               'ref_id' => $this->request->data['product_id'],
+           ));
+           if(!empty($this->request->data['use_as_thumb']) && $this->request->data['use_as_thumb'] == true){
+               $this->loadModel($ref);
+               $this->$ref->save(array(
+                   'id' => $this->request->data['product_id'],
+                   'media_id' => $this->request->data['media_id'],
+               ));
+           }
+       }
+       return $this->redirect(Router::url(array('action'=>'fast_import',$ref)));
     }
     /**
     * Upload (Ajax)

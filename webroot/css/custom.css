@@ -110,3 +110,24 @@ span.title-option {
 }
 #filelist .item {
 }
+.ui-autocomplete {
+    width: 500px !important;
+    margin: 20px;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.ui-autocomplete li{
+    list-style: none;
+}
+.ui-helper-hidden-accessible{
+    position: absolute;
+    right: 20px;
+    top: 30px;
+}

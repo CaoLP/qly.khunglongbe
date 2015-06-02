@@ -1,3 +1,7 @@
+<script>
+    var ajax_media_url = '<?php echo $this->Html->url(array('controller'=>'medias','action'=>'update_media')) ?>';
+    var ajax_product_url = '<?php echo $this->Html->url(array('controller'=>'products','action'=>'ajax_index')) ?>';
+</script>
 <div class="panel-heading">
     <h3 class="panel-title">
         <a href="javascript:void(0);" class="toggle-sidebar">
@@ -157,34 +161,39 @@ jQuery(function(){
 
 <?php $this->Html->scriptEnd(); ?>
 <!-- Modal -->
-<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Chọn sản phẩm</h4>
-            </div>
-            <div class="modal-body">
-                <form action="<?php echo $this->Html->url(array(
-                    'controller'=>'medias',
-                    'action' => 'update_media'
-                ))?>">
+<div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <form action="<?php echo $this->Html->url(array(
+        'controller' => 'medias',
+        'action' => 'update_media'
+    ))?>" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Chọn sản phẩm</h4>
+                </div>
+                <div class="modal-body">
+
                     <div class="form-group">
                         <label for="product_name">Tìm sản phẩm</label>
                         <input type="text" class="form-control" id="product_name" placeholder="Nhập tên sản phẩm">
-                        <input type="hidden" class="form-control" id="product_id" >
+                        <input type="hidden" class="form-control" name="product_id" id="product_id">
+                        <input type="hidden" class="form-control" name="media_id" id="media_id">
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> Làm ảnh đại diện
+                            <input type="checkbox" name="use_as_thumb" id="use_as_thumb" value="true"> Làm ảnh đại diện
                         </label>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Lưu lại</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu lại</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
