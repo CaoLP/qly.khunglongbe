@@ -59,9 +59,9 @@ class Option extends AppModel {
             'fields' => '',
             'order' => ''
         ),
-        'Category' => array(
-            'className' => 'Category',
-            'foreignKey' => 'category_id',
+        'OptionCat' => array(
+            'className' => 'OptionCat',
+            'foreignKey' => 'option_cat_id',
             'conditions' => '',
             'fields' => '',
             'order' => ''

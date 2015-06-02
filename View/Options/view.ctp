@@ -43,7 +43,7 @@
             <tr>
                 <th><?php echo __('Category'); ?></th>
                 <td>
-                    <?php echo $this->Html->link($option['Category']['name'], array('controller' => 'categories', 'action' => 'view', $option['Category']['id'])); ?>
+                    <?php echo $this->Html->link($option['OptionCat']['name'], array('controller' => 'option_cats', 'action' => 'view', $option['OptionCat']['id'])); ?>
                     &nbsp;
                 </td>
             </tr>

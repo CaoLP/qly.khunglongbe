@@ -6,7 +6,7 @@ App::uses('AppController', 'Controller');
  * @property Option $Option
  * @property PaginatorComponent $Paginator
  */
-class OptionsController extends AppController {
+class OptionCatsController extends AppController {
 
 /**
  * Components
@@ -21,8 +21,8 @@ class OptionsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Option->recursive = 0;
-		$this->set('options', $this->Paginator->paginate());
+		$this->OptionCat->recursive = 0;
+		$this->set('option_cats', $this->Paginator->paginate());
 	}
 
 /**
@@ -33,11 +33,11 @@ class OptionsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Option->exists($id)) {
+		if (!$this->OptionCat->exists($id)) {
 			throw new NotFoundException(__('Invalid option'));
 		}
-		$options = array('conditions' => array('Option.' . $this->Option->primaryKey => $id));
-		$this->set('option', $this->Option->find('first', $options));
+		$option_cats = array('conditions' => array('OptionCat.' . $this->OptionCat->primaryKey => $id));
+		$this->set('option_cat', $this->OptionCat->find('first', $option_cats));
 	}
 
 /**
@@ -47,18 +47,14 @@ class OptionsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->Option->create();
-			if ($this->Option->save($this->request->data)) {
+			$this->OptionCat->create();
+			if ($this->OptionCat->save($this->request->data)) {
 				$this->Session->setFlash(__('The option has been saved.'), 'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The option could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
-		$optionGroups = $this->Option->OptionGroup->find('list');
-        $parents= $this->Option->ParentOption->find('list');
-        $option_cats= $this->Option->OptionCat->find('list');
-        $this->set(compact('optionGroups','parents','option_cats'));
 	}
 
 /**
@@ -69,24 +65,20 @@ class OptionsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Option->exists($id)) {
+		if (!$this->OptionCat->exists($id)) {
 			throw new NotFoundException(__('Invalid option'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Option->save($this->request->data)) {
+			if ($this->OptionCat->save($this->request->data)) {
 				$this->Session->setFlash(__('The option has been saved.'), 'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The option could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
 		} else {
-			$options = array('conditions' => array('Option.' . $this->Option->primaryKey => $id));
-			$this->request->data = $this->Option->find('first', $options);
+			$option_cats = array('conditions' => array('OptionCat.' . $this->OptionCat->primaryKey => $id));
+			$this->request->data = $this->OptionCat->find('first', $option_cats);
 		}
-		$optionGroups = $this->Option->OptionGroup->find('list');
-        $parents = $this->Option->ParentOption->find('list');
-        $option_cats= $this->Option->OptionCat->find('list');
-        $this->set(compact('optionGroups','parents','option_cats'));
 	}
 
 /**
@@ -97,12 +89,12 @@ class OptionsController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->Option->id = $id;
-		if (!$this->Option->exists()) {
+		$this->OptionCat->id = $id;
+		if (!$this->OptionCat->exists()) {
 			throw new NotFoundException(__('Invalid option'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Option->delete()) {
+		if ($this->OptionCat->delete()) {
 			$this->Session->setFlash(__('The option has been deleted.'), 'default', array('class' => 'alert alert-success'));
 		} else {
 			$this->Session->setFlash(__('The option could not be deleted. Please, try again.'), 'default', array('class' => 'alert alert-danger'));

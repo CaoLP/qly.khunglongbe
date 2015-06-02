@@ -70,6 +70,26 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><?php echo __('Options') ?></div>
                     <div class="panel-body">
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <?php foreach($option_cats as $k=>$option_cat) {?>
+                                    <li role="presentation" class="<?php echo $k == 0? 'active': '';?>"><a href="#tab_<?php echo $option_cat['OptionCat']['id']?>" role="tab" data-toggle="tab"><?php echo $option_cat['OptionCat']['name']?></a></li>
+                                <?php } ?>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <?php foreach($option_cats as $k=>$option_cat) {?>
+                                <div role="tabpanel" class="tab-pane <?php echo $k == 0? 'active': '';?>" id="tab_<?php echo $option_cat['OptionCat']['id']?>">
+                                    <h4><?php echo $key ?></h4>
+
+
+
+                                </div>
+                                <?php } ?>
+                            </div>
+
+                        </div>
                         <?php foreach ($product_options as $key => $opt_gr) {
                             ?>
                             <h4><?php echo $key ?></h4>

@@ -20,7 +20,7 @@
                 <th><?php echo $this->Paginator->sort('id'); ?></th>
                 <th><?php echo $this->Paginator->sort('name'); ?></th>
                 <th><?php echo $this->Paginator->sort('option_group_id'); ?></th>
-                <th><?php echo $this->Paginator->sort('category_id'); ?></th>
+                <th><?php echo $this->Paginator->sort('option_cat_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('parent_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('other'); ?></th>
                 <th class="actions"></th>
@@ -35,7 +35,7 @@
                         <?php echo $this->Html->link($option['OptionGroup']['name'], array('controller' => 'option_groups', 'action' => 'view', $option['OptionGroup']['id'])); ?>
                     </td>
                     <td>
-                        <?php echo $this->Html->link($option['Category']['name'], array('controller' => 'categories', 'action' => 'view', $option['Category']['id'])); ?>
+                        <?php echo $this->Html->link($option['OptionCat']['name'], array('controller' => 'option_cats', 'action' => 'view', $option['OptionCat']['id'])); ?>
                     </td>
                     <td>
                         <?php echo $this->Html->link($option['ParentOption']['name'], array('controller' => 'options', 'action' => 'view', $option['ParentOption']['id'])); ?>

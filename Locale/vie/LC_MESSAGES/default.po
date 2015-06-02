@@ -2553,3 +2553,6 @@ msgstr "Mục cha"
 
 msgid "Parent name"
 msgstr "Tên mục cha"
+
+msgid "Option Cat"
+msgstr "Danh mục thuộc tính"
