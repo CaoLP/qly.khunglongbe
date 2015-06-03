@@ -193,9 +193,10 @@ class ProductsController extends AppController
         $categories = $this->Product->Category->find('list');
 
         $product_options = $this->Product->ProductOption->Option->find('all');
-        $option_cats = $this->Product->ProductOption->Option->OptionCat->find('all');
+        $option_groups = $this->Product->ProductOption->Option->OptionGroup->find('list');
+        $option_cats = $this->Product->ProductOption->Option->OptionCat->find('list');
         $product_options = Set::combine($product_options,'{n}.Option.id','{n}','{n}.OptionGroup.name');
-        $this->set(compact('providers', 'categories','product_options','option_cats'));
+        $this->set(compact('providers', 'categories','product_options','option_cats','option_groups'));
     }
 
     /**

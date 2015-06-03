@@ -41,8 +41,12 @@ class AppController extends Controller
                 ),
             )
         ),
-        'DebugKit.Toolbar'
     );
+    public function beforeFilter(){
+        if($this->Session->check('use_debug') && $this->Session->read('use_debug')){
+            $this->Toolbar = $this->Components->load('DebugKit.Toolbar');
+        }
+    }
     public function beforeRender()
     {
         $this->set('statuses', array(

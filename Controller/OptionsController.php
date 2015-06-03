@@ -46,6 +46,24 @@ class OptionsController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax')){
+            if(!empty($this->request->data['name'])){
+                $save = array(
+                    'name' => $this->request->data('name'),
+                    'option_cat_id' => $this->request->data('option_cat'),
+                    'option_group_id' => $this->request->data('option_group'),
+                );
+                if($this->Option->save($save)){
+                    $id = $this->Option->id;
+                    echo json_encode(array('id'=>$id,'name'=>$this->request->data('name')));
+                }else{
+                    echo json_encode(array('error'=>'Không thể lưu thuộc tính'));
+                }
+            }else{
+                echo json_encode(array('error'=>'Tên không bỏ trống'));
+            }
+            die;
+        }else
 		if ($this->request->is('post')) {
 			$this->Option->create();
 			if ($this->Option->save($this->request->data)) {

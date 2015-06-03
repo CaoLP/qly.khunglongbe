@@ -116,7 +116,34 @@ $(function () {
             }
         });
     });
+    $(document).on('click','.add-option',function(){
+        formOptionAjax('#option-add-form form',addOption, $(this).data('target'),$('#option-add-form'));
+        $('#option-add-form').popup({
+            opacity: 0.3,
+            transition: 'all 0.3s'
+        });
+        $('#error').hide();
+        var option_cat = $(this).data('option_cat');
+        var option_group =$(this).data('option_group');
+        $('#option_cat').val(option_cat);
+        $('#option_group').val(option_group);
+        $('#option_name').val('');
+        $('#option-add-form').popup('show');
+    });
 });
+var addOption = function(id,name,target){
+       var template =
+           '<div class="list-option">'
+               +'<div class="checkbox">'
+                   +'<input type="checkbox"  name="data[ProductOption][]"  class="option-checkbox" id="flat-checkbox-{id}" value="{id}">'
+                   +'<label for="flat-checkbox-{id}">{name}</label>'
+               +'</div>'
+           +'</div>';
+       template = template.replace(/{id}/g, id);
+       template = template.replace(/{name}/g, name);
+        $(target).append(template);
+    $('#flat-checkbox-'+id).iCheck({checkboxClass: 'icheckbox_flat'});
+};
 var setUpFormAjax = function (form, div, popup, callback) {
     $(form).ajaxForm(
         {
@@ -136,6 +163,48 @@ var setUpFormAjax = function (form, div, popup, callback) {
             complete: function (xhr) {
                 $(div).html(xhr.responseText);
                 setUpFormAjax($(div).find('form'), div, popup, callback);
+            }
+        }
+    );
+};
+var formOptionAjax = function (form, callback, target,pop) {
+    $(form).ajaxForm(
+        {
+            beforeSubmit: function (e) {
+                var ok = true;
+                $(e).each(function(index,value){
+                    if(value.value.length==0) {
+                        $('#error #msg').text('Không được bỏ trống');
+                        ok = false;
+                    }
+                });
+                if(!ok){
+                    $('#error').show();
+                }
+            },
+            beforeSend: function () {
+                $('#error').hide();
+            },
+            uploadProgress: function (event, position, total, percentComplete) {
+
+
+            },
+            success: function () {
+
+            },
+            complete: function (xhr) {
+                try{
+                    var item = JSON.parse(xhr.responseText);
+                    if(typeof item.error == 'undefined'){
+                        addOption(item.id,item.name ,target);
+                        pop.popup('hide');
+                    }else{
+                        $('#error').show();
+                        $('#error #msg').text(item.error);
+                    }
+                }catch (e){
+                    alert(e);
+                }
             }
         }
     );

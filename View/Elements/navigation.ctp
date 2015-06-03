@@ -14,6 +14,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?php echo $this->Html->url(array('controller'=>'pages','action'=>'use_debug'))?>">
+                    <?php
+                    if($this->Session->check('use_debug') && $this->Session->read('use_debug')){
+                        echo 'Disable Debug';
+                    }else{
+                        echo 'Debug';
+                    }
+                    ?>
+
+                    </a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo AuthComponent::user()['name'];?> <b class="caret"></b></a>
                     <ul role="menu" class="dropdown-menu">
