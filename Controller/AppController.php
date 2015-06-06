@@ -53,6 +53,11 @@ class AppController extends Controller
             1 => __('Active'),
             0 => __('Disable')
         ));
+
+        $this->set('types', array(
+            0 => __('Hàng có sẵn'),
+            1 => __('Hàng order')
+        ));
         //sample
     }
     public function canUploadMedias($model, $id){

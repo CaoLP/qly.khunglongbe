@@ -1,4 +1,5 @@
-<?php $this->Html->script('jquery.popupoverlay.js',array('inline'=>false));?>
+<?php $this->Html->css(array('bootstrap-tagsinput.css'),array('inline'=>false));?>
+<?php $this->Html->script(array('jquery.popupoverlay.js','bootstrap-tagsinput.js'),array('inline'=>false));?>
 <div class="panel-heading">
     <h3 class="panel-title">
         <a href="javascript:void(0);" class="toggle-sidebar">
@@ -55,7 +56,12 @@
             <div class="form-group">
                 <?php echo $this->Form->input('status', array('class' => 'form-control', 'placeholder' => 'Status')); ?>
             </div>
-
+            <div class="form-group">
+                <?php echo $this->Form->input('type', array('options'=>$types,'class' => 'form-control', 'placeholder' => 'Status')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo $this->Form->input('tags', array('type'=>'text','data-role' => 'tagsinput','class' => 'form-control', 'placeholder' => 'Status')); ?>
+            </div>
         </div>
     </div>
     <div class="row">
