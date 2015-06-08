@@ -72,4 +72,60 @@ class PagesController extends AppController {
         }
         return $this->redirect($this->referer());
     }
+    public function import_product(){
+        App::import('Vendor', 'simple_html_dom');
+        $html = file_get_html('http://haicaubeo.com/Home.aspx?categoryId=21');
+        $data = $html->find('*[id="ctl00_body_grid"] tbody table a');
+        foreach($data as $d){
+            $child = file_get_html('http://haicaubeo.com/'.$d->href);
+            $title_xpath = '//*[@id="ctl00_body_grid"]/tbody/tr/td/table/tbody/tr[1]/td/span';
+            $price_xpath = '//*[@id="ctl00_body_grid"]/tbody/tr/td/table/tbody/tr[3]/td[2]/span';
+            $sku_xpath = '//*[@id="ctl00_body_grid"]/tbody/tr/td/table/tbody/tr[4]/td[2]';
+            $img_xpath = '//*[@id="ctl00_body_grid"]/tbody/tr/td/table/tbody/tr[2]/td/div/img';
+            $content_xpath = '//*[@id="ctl00_body_grid"]/tbody/tr/td/table/tbody/tr[10]/td/table/tbody/tr/td';
+
+            $title = $child->find($title_xpath,0)->innertext;
+            $price = $child->find($price_xpath,0)->innertext;
+            $sku= $child->find($sku_xpath,0)->innertext;
+            $img = $child->find($img_xpath,0)->src;
+            $content = $child->find($content_xpath,0)->innertext;
+
+            debug(trim($title));
+            debug(trim($price));
+            debug(trim($sku));
+            debug(trim($img));
+            debug(trim($content));
+            die;
+        }
+        die;
+
+    }
+    function addToFiles($key, $url)
+    {
+        $tempName = tempnam('/tmp', 'php_files');
+        $originalName = basename(parse_url($url, PHP_URL_PATH));
+
+        $imgRawData = file_get_contents($url);
+        file_put_contents($tempName, $imgRawData);
+        $_FILES[$key] = array(
+            'name' => $originalName,
+            'type' => mime_content_type($tempName),
+            'tmp_name' => $tempName,
+            'error' => 0,
+            'size' => strlen($imgRawData),
+        );
+//        array(
+//            'Media' => array(
+//                'ref' => 'Product',
+//                'ref_id' => '1',
+//                'file' => array(
+//                    'name' => '7adaf2.png',
+//                    'type' => 'image/png',
+//                    'tmp_name' => '/tmp/phpHfD0Zl',
+//                    'error' => (int) 0,
+//                    'size' => (int) 576641
+//                )
+//            )
+//        )
+    }
 }
