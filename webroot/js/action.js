@@ -130,6 +130,9 @@ $(function () {
         $('#option_name').val('');
         $('#option-add-form').popup('show');
     });
+    $(document).on('click','.close-options',function(){
+        $('#option-add-form').popup('hide');
+    });
 });
 var addOption = function(id,name,target){
        var template =

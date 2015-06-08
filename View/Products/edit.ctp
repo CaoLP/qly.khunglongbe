@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-danger">Đóng</button>
+                        <button type="button" class="btn btn-danger close-options">Đóng</button>
                         <button type="submit" class="btn btn-success">Thêm</button>
                     </div>
                 </form>
