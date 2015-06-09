@@ -75,6 +75,7 @@ class PagesController extends AppController {
     public function import_product(){
         App::import('Vendor', 'simple_html_dom');
         $html = file_get_html('http://haicaubeo.com/Home.aspx?categoryId=21');
+        echo($html);die;
         $data = $html->find('*[id="ctl00_body_grid"] tbody table a');
         foreach($data as $d){
             $child = file_get_html('http://haicaubeo.com/'.$d->href);
@@ -90,11 +91,13 @@ class PagesController extends AppController {
             $img = $child->find($img_xpath,0)->src;
             $content = $child->find($content_xpath,0)->innertext;
 
-            debug(trim($title));
-            debug(trim($price));
-            debug(trim($sku));
-            debug(trim($img));
-            debug(trim($content));
+            $title = trim($title);
+            $price = trim($price);
+            $sku = trim($sku);
+            $img = trim($img);
+            $content = trim($content);
+
+            debug($img);
             die;
         }
         die;
