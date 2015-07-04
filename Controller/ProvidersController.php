@@ -47,6 +47,8 @@ class ProvidersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+            if(!isset($this->request->data['Provider']['slug']))
+                $this->request->data['Provider']['slug'] = $this->make_slug($this->request->data['Provider']['name']);
 			$this->Provider->create();
 			if ($this->Provider->save($this->request->data)) {
 				$this->Session->setFlash(__('The provider has been saved.'), 'default', array('class' => 'alert alert-success'));
@@ -69,6 +71,8 @@ class ProvidersController extends AppController {
 			throw new NotFoundException(__('Invalid provider'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+            if(empty($this->request->data['Provider']['slug']))
+                $this->request->data['Provider']['slug'] = $this->make_slug($this->request->data['Provider']['name']);
 			if ($this->Provider->save($this->request->data)) {
 				$this->Session->setFlash(__('The provider has been saved.'), 'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));

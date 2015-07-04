@@ -29,7 +29,7 @@
                     <td><?php
                         if ($setting['Thumb']['file'])
                             echo $this->Media->image($setting['Thumb']['file'], 50, 50, array('class' => 'thumbnail'));
-                        ?>&nbsp;</td>
+                        ?></td>
                     <td><?php echo h($setting['Setting']['id']); ?>&nbsp;</td>
                     <td>
                         <?php echo $this->Html->link($setting['ParentSetting']['name'], array('controller' => 'settings', 'action' => 'view', $setting['ParentSetting']['id'])); ?>

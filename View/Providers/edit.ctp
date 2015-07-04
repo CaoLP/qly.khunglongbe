@@ -22,9 +22,7 @@
         <div class="form-group">
             <?php echo $this->Form->input('name', array('class' => 'form-control', 'placeholder' => 'Name')); ?>
         </div>
-        <div class="form-group">
-            <?php echo $this->Form->input('code', array('class' => 'form-control', 'placeholder' => 'Code')); ?>
-        </div>
+            <?php echo $this->Form->hidden('slug', array('class' => 'form-control', 'placeholder' => 'Slug')); ?>
 
         <div class="form-group">
             <?php echo $this->Media->iframe('Provider', $this->request->data['Provider']['id']); ?>
