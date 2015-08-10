@@ -29,6 +29,9 @@
             <?php echo $this->Form->input('url', array('class' => 'form-control', 'placeholder' => 'Url', 'options' => $listUrls, 'empty' => '___SELECT PATH___')); ?>
         </div>
         <div class="form-group">
+            <?php echo $this->Form->input('url_other', array('class' => 'form-control','disabled'=>true,'type'=>'text', 'placeholder' => 'other url')); ?>
+        </div>
+        <div class="form-group">
             <?php echo $this->Form->input('parent_id', array('class' => 'form-control', 'placeholder' => 'Parent Id', 'empty' =>'__Parents__')); ?>
         </div>
         <div class="form-group">

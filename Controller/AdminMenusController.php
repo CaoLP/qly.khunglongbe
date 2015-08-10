@@ -51,6 +51,9 @@ class AdminMenusController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
+            if($this->request->data('AdminMenu.url') == 'other'){
+                $this->request->data['AdminMenu']['url'] = $this->request->data('AdminMenu.url_other');
+            }
             $this->AdminMenu->create();
             if ($this->AdminMenu->save($this->request->data)) {
                 $this->Session->setFlash(__('The admin menu has been saved.'), 'default', array('class' => 'alert alert-success'));
@@ -77,6 +80,9 @@ class AdminMenusController extends AppController
             throw new NotFoundException(__('Invalid admin menu'));
         }
         if ($this->request->is(array('post', 'put'))) {
+            if($this->request->data('AdminMenu.url') == 'other'){
+                $this->request->data['AdminMenu']['url'] = $this->request->data('AdminMenu.url_other');
+            }
             if ($this->AdminMenu->save($this->request->data)) {
                 $this->Session->setFlash(__('The admin menu has been saved.'), 'default', array('class' => 'alert alert-success'));
                 return $this->redirect(array('action' => 'index'));
@@ -86,6 +92,8 @@ class AdminMenusController extends AppController
         } else {
             $options = array('conditions' => array('AdminMenu.' . $this->AdminMenu->primaryKey => $id));
             $this->request->data = $this->AdminMenu->find('first', $options);
+            $this->request->data['AdminMenu']['url_other'] = $this->request->data['AdminMenu']['url'];
+            $this->request->data['AdminMenu']['url'] = 'other';
         }
         $parentAdminMenus = $this->AdminMenu->ParentAdminMenu->find('list');
         $this->set('parents',$parentAdminMenus);
@@ -145,6 +153,7 @@ class AdminMenusController extends AppController
                 $temp[Router::url(array('controller' => $con_name, 'action' => $act_name))] = Router::url(array('controller' => $con_name, 'action' => $act_name));
             }
         }
+        $temp['other'] = 'Đường dẫn khác';
         return $temp;
     }
 }

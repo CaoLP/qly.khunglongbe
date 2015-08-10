@@ -31,14 +31,14 @@
 					<?php echo $this->Form->input('value', array('class' => 'form-control', 'placeholder' => 'Value'));?>
 				</div>
 				<div class="form-group">
-					<?php echo $this->Form->input('type', array('class' => 'form-control', 'placeholder' => 'Type'));?>
-				</div>
-				<div class="form-group">
 					<?php echo $this->Form->input('begin', array('class' => '', 'placeholder' => 'Begin'));?>
 				</div>
 				<div class="form-group">
 					<?php echo $this->Form->input('end', array('class' => '', 'placeholder' => 'End'));?>
 				</div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('excert', array('class' => 'form-control', 'placeholder' => 'Excert'));?>
+                </div>
                 <div class="form-group">
                     <?php echo $this->Media->ckeditor('descriptions', array('label' => __('Descriptions'))); ?>
                     <?php //echo $this->Form->input('descriptions', array('class' => 'form-control', 'placeholder' => 'Descriptions')); ?>

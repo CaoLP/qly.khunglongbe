@@ -47,6 +47,9 @@ class AppController extends Controller
             $this->Toolbar = $this->Components->load('DebugKit.Toolbar');
         }
     }
+    public function setTitle($title = ''){
+        $this->set('title_for_layout', $title);
+    }
     public function beforeRender()
     {
         $this->set('statuses', array(
@@ -57,6 +60,10 @@ class AppController extends Controller
         $this->set('types', array(
             0 => __('Hàng có sẵn'),
             1 => __('Hàng order')
+        ));
+        $this->set('globals', array(
+            0 => __('Không'),
+            1 => __('Có')
         ));
         //sample
     }

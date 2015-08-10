@@ -133,6 +133,16 @@ $(function () {
     $(document).on('click','.close-options',function(){
         $('#option-add-form').popup('hide');
     });
+
+    if($('#AdminMenuUrl').length > 0){
+        $('#AdminMenuUrl').on('change',function(){
+            if($(this).val() =='other'){
+                $('#AdminMenuUrlOther').attr('disabled', false);
+            }else{
+                $('#AdminMenuUrlOther').attr('disabled', true);
+            }
+        });
+    }
 });
 var addOption = function(id,name,target){
        var template =
