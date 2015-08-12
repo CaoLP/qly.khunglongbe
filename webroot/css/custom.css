@@ -131,3 +131,41 @@ span.title-option {
     right: 20px;
     top: 30px;
 }
+.product-gallery{
+    list-style: none;
+}
+.sub-gallery{
+    list-style: none;
+    padding: 0;
+}
+.sub-gallery li{
+    display: inline-block;
+}
+.sub-gallery li.place-holder{
+    width: 100px;
+    height: 150px;
+    border: 1px dashed #9f9f9f;
+    background-color: #d8d8d8;
+    position: relative;
+}
+.sub-gallery li.place-holder a{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translateY(-50%) translateX(-50%);
+    text-align: center;
+    width: 50px;
+    overflow: hidden;
+    margin-left: 3px;
+    font-size: 50px;
+}
+.img-item{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.img-item input{
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+}
