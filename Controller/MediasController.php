@@ -50,6 +50,17 @@ class MediasController extends AppController{
         $editor = isset($this->request->params['named']['editor']) ? $this->request->params['named']['editor'] : false;
         $this->set(compact('id', 'medias', 'thumbID', 'editor', 'extensions'));
     }
+    /**
+     * Liste les médias
+     **/
+    public function load_media($ref,$ref_id){
+        if($this->request->is('ajax')) $this->layout = 'ajax';
+        $medias = $this->Media->find('all',array(
+            'conditions' => array('ref_id' => $ref_id,'ref' => $ref)
+        ));
+        $this->set(compact('medias'));
+    }
+
     public function fast_import($ref = 'Product'){
         $this->layout = 'media';
 //        if(!$this->canUploadMedias($ref, $ref_id)){

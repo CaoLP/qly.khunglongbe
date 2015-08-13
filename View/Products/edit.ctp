@@ -1,5 +1,13 @@
 <?php $this->Html->css(array('bootstrap-tagsinput.css'),array('inline'=>false));?>
 <?php $this->Html->script(array('jquery.popupoverlay.js','bootstrap-tagsinput.js', 'jquery-ui.min.js', 'add_product.js'),array('inline'=>false));?>
+<script>
+    var gallery = '<?php echo $this->Html->url(array(
+            'controller' => 'medias',
+            'action' => 'load_media',
+            'Product', $this->request->data['Product']['id']
+
+    ))?>';
+</script>
 <div class="panel-heading" xmlns="http://www.w3.org/1999/html">
     <h3 class="panel-title">
         <a href="javascript:void(0);" class="toggle-sidebar">
@@ -82,19 +90,7 @@
            <div class="panel-body">
                <div class="col-md-12">
                    <ul class="list-group product-group">
-                       <li class="list-group-item" id="item-0">
-                           <div class="form-group">
-                               <label>Tên nhóm</label>
-                               <input class="form-control" name="name[0]" value="" placeholder="Tên nhóm">
-                           </div>
-                           <div class="form-group">
-                               <ul class="sub-gallery">
-                                   <li class="place-holder">
-                                       <a href="javascript:;" class="add-media" data-id="0"><i class="glyphicon glyphicon-plus"></i></a>
-                                   </li>
-                               </ul>
-                           </div>
-                       </li>
+
                    </ul>
                </div>
            </div>
@@ -232,6 +228,10 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Tên nhóm</label>
+                        <input class="form-control" name="name" id="group-name" value="" placeholder="Tên nhóm">
+                    </div>
                     <div class="product-gallery">
                         <?php foreach($this->request->data('Media') as $media) {?>
                             <div class="img-item" id="img-<?php echo $media['id']?>">
