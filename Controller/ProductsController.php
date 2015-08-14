@@ -154,6 +154,11 @@ class ProductsController extends AppController
             throw new NotFoundException(__('Invalid product'));
         }
         if ($this->request->is(array('post', 'put'))) {
+//            $data_1 = array(1,2,3,4,5,6);
+//            $data_2 = array(4,5,6);
+//            debug(array_diff($data_1,$data_2));die;
+//            debug(Set::combine($this->request->data['group'],'{n}.medias',''));
+//            die;
             $this->request->data['Product']['price'] = str_replace(',','',$this->request->data['Product']['price']);
             $this->request->data['Product']['price'] = str_replace(' VNĐ','',$this->request->data['Product']['price']);
             $this->request->data['Product']['retail_price'] = str_replace(',','',$this->request->data['Product']['retail_price']);
@@ -172,6 +177,11 @@ class ProductsController extends AppController
                 }
                 $product_id = $this->Product->id;
                 $this->Product->ProductOption->updateOptions($this->request->data['ProductOption'], $product_id);
+
+                if(isset($this->request->data['group'])){
+                    $this->Product->ProductSubitem->updateSubitem($this->request->data['group'], $product_id);
+                }
+
                 $this->Session->setFlash(__('The product has been saved.'), 'default', array('class' => 'alert alert-success'));
                 if(isset($this->request->query['media_id'])){
                     return $this->redirect(array('controller'=>'medias','action' => 'fast_import', 'Product'));

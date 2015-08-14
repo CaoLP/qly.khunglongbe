@@ -55,8 +55,16 @@ class MediasController extends AppController{
      **/
     public function load_media($ref,$ref_id){
         if($this->request->is('ajax')) $this->layout = 'ajax';
+        $not_in = array();
+        if(isset($this->request->query['not_in'])){
+            $not_in = $this->request->query['not_in'];
+        }
         $medias = $this->Media->find('all',array(
-            'conditions' => array('ref_id' => $ref_id,'ref' => $ref)
+            'conditions' => array(
+                'ref_id' => $ref_id,
+                'ref' => $ref,
+                'NOT' => array('Media.id'=> $not_in)
+            )
         ));
         $this->set(compact('medias'));
     }

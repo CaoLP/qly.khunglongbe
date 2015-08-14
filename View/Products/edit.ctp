@@ -90,7 +90,37 @@
            <div class="panel-body">
                <div class="col-md-12">
                    <ul class="list-group product-group">
-
+                       <?php foreach($this->request->data['ProductSubitem'] as $k=>$item){
+                           ?>
+                           <li class="list-group-item" id="item-1439540648">
+                               <div class="form-group"><label>Tên nhóm</label>
+                                   <input class="form-control"
+                                          name="group[<?php echo $k; ?>][name]" value="<?php echo $item['name'];?>"
+                                          placeholder="Tên nhóm">
+                               </div>
+                               <input type="hidden" name="group[<?php echo $k; ?>][id][]" value="<?php echo $item['id'];?>">
+                               <div class="form-group">
+                                   <ul class="sub-gallery">
+                                       <?php
+                                       $medias = json_decode($item['medias']);
+                                       foreach($medias as $sub_media){
+                                           $media = $this->request->data['Media'][$sub_media];
+                                           ?>
+                                           <li>
+                                               <label>
+                                                   <?php echo $this->Media->image($media['file'], 100, 150, array('class' => 'thumbnail'));?>
+                                                   <input type="checkbox" name="group[<?php echo $k; ?>][medias][]" value="<?php echo $media['id']?>"
+                                                          checked="checked"
+                                                          onclick="return false;"
+                                                       />
+                                               </label>
+                                           </li>
+                                       <?php } ?>
+                                   </ul>
+                               </div>
+                           </li>
+                           <?php
+                       }?>
                    </ul>
                </div>
            </div>
@@ -233,14 +263,6 @@
                         <input class="form-control" name="name" id="group-name" value="" placeholder="Tên nhóm">
                     </div>
                     <div class="product-gallery">
-                        <?php foreach($this->request->data('Media') as $media) {?>
-                            <div class="img-item" id="img-<?php echo $media['id']?>">
-                                <label>
-                                    <?php echo $this->Media->image($media['file'], 100, 150, array('class' => 'thumbnail'));?>
-                                    <input type="checkbox" name="media_id" value="<?php echo $media['id']?>"/>
-                                </label>
-                            </div>
-                        <?php } ?>
                     </div>
                 </div>
             </div>

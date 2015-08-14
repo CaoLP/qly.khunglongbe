@@ -20,6 +20,16 @@ class Product extends AppModel
      * @var array
      */
     public $validate = array(
+        'sku' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
         'provider_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
@@ -133,7 +143,20 @@ class Product extends AppModel
             'className' => 'ProductOption',
             'foreignKey' => 'product_id',
             'dependent' => false,
-            'conditions' => array('disable' => 0),
+            'conditions' => array('disable'=>0),
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+        'ProductSubitem' => array(
+            'className' => 'ProductSubitem',
+            'foreignKey' => 'product_id',
+            'dependent' => false,
+            'conditions' => array(),
             'fields' => '',
             'order' => '',
             'limit' => '',
@@ -157,22 +180,70 @@ class Product extends AppModel
         )
     );
 
-    public function beforeSave($options = array())
-    {
-        if (isset($this->data[$this->name]['id'])) {
-            $product = $this->find('first', array('recursive' => -1, 'conditions' => array('Product.id' => $this->data[$this->name]['id'])));
-            if (empty($product[$this->name]['media_id'])) {
-                Controller::loadModel('Media');
-                $media = $this->Media->find('first',
-                    array('conditions' => array(
-                        'ref' => $this->name,
-                        'ref_id' => $this->data[$this->name]['id']
+    public function getProduct($order = 'Product.created DESC',$limit = 6){
+        $result = $this->find('all',array(
+            'fields' =>'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'conditions' => array(
+                'NOT' => array(
+                    'Product.name' => array('0',''),
+                )
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'product_promotes',
+                    'alias' => 'ProductPromote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.id = ProductPromote.product_id'
                     )
+                ),
+                array(
+                    'table' => 'promotes',
+                    'alias' => 'Promote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'ProductPromote.promote_id = Promote.id',
+                        'Promote.begin <=' => date('Y-m-d H:i:s'),
+                        'Promote.end >=' => date('Y-m-d H:i:s'),
                     )
-                );
-                if(count($media)> 0)
-                $this->data[$this->name]['media_id'] = $media['Media']['id'];
-            }
-        }
+                )
+            ),
+            'order' => array($order),
+            'limit' => $limit
+        ));
+        return $result;
+    }
+    public function getProductDetails($category, $slug){
+        $result = $this->find('first',array(
+            'fields' =>'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'conditions' => array(
+                'NOT' => array(
+                    'Product.name' => array('0',''),
+                ),
+                'Category.slug' => $category,
+                'Product.slug' => $slug
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'product_promotes',
+                    'alias' => 'ProductPromote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.id = ProductPromote.product_id'
+                    )
+                ),
+                array(
+                    'table' => 'promotes',
+                    'alias' => 'Promote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'ProductPromote.promote_id = Promote.id',
+                        'Promote.begin <=' => date('Y-m-d H:i:s'),
+                        'Promote.end >=' => date('Y-m-d H:i:s'),
+                    )
+                )
+            ),
+        ));
+        return $result;
     }
 }

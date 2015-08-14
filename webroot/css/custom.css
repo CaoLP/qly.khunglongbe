@@ -169,3 +169,6 @@ span.title-option {
     bottom: 30px;
     left: 10px;
 }
+.product-group input[type=checkbox]{
+    display: none;
+}
