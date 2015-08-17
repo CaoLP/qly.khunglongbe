@@ -92,8 +92,11 @@
                    <ul class="list-group product-group">
                        <?php foreach($this->request->data['ProductSubitem'] as $k=>$item){
                            ?>
-                           <li class="list-group-item" id="item-1439540648">
-                               <div class="form-group"><label>Tên nhóm</label>
+                           <li class="list-group-item" id="item-<?php echo $item['id'];?>">
+                               <div class="form-group">
+                                   <label>
+                                       <a href="javascript:;" class="remove-group" data-target="item-<?php echo $item['id'];?>"><i class="fa fa-trash-o"></i></a>Tên nhóm
+                                   </label>
                                    <input class="form-control"
                                           name="group[<?php echo $k; ?>][name]" value="<?php echo $item['name'];?>"
                                           placeholder="Tên nhóm">

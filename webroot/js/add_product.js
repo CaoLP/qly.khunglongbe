@@ -31,7 +31,7 @@ $(function () {
         if($('#get-gallery input:checked').length > 0){
             var template = '<li class="list-group-item" id="item-'+uuid+'">'
                 +'<div class="form-group">'
-                +'<label>Tên nhóm</label>'
+                +'<label><a href="javascript:;" class="remove-group" data-target="item-'+uuid+'"><i class="fa fa-trash-o"></i></a>Tên nhóm</label>'
                 +'<input class="form-control" name="group['+uuid+'][name]" value="'+group_name+'" placeholder="Tên nhóm">'
                 +'</div>'
                 +'<div class="form-group">'
