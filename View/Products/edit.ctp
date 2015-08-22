@@ -1,4 +1,4 @@
-<?php $this->Html->css(array('bootstrap-tagsinput.css'),array('inline'=>false));?>
+<?php $this->Html->css(array('bootstrap-tagsinput.css'), array('inline' => false)); ?>
 <?php $this->Html->script(array('jquery.popupoverlay.js','bootstrap-tagsinput.js', 'jquery-ui.min.js', 'add_product.js'),array('inline'=>false));?>
 <script>
     var gallery = '<?php echo $this->Html->url(array(
@@ -95,13 +95,13 @@
                            <li class="list-group-item" id="item-<?php echo $item['id'];?>">
                                <div class="form-group">
                                    <label>
-                                       <a href="javascript:;" class="remove-group" data-target="item-<?php echo $item['id'];?>"><i class="fa fa-trash-o"></i></a>Tên nhóm
+                                       <a href="javascript:" class="remove-group" data-target="#item-<?php echo $item['id'];?>"><i class="fa fa-trash-o"></i></a> Tên nhóm
                                    </label>
                                    <input class="form-control"
                                           name="group[<?php echo $k; ?>][name]" value="<?php echo $item['name'];?>"
                                           placeholder="Tên nhóm">
                                </div>
-                               <input type="hidden" name="group[<?php echo $k; ?>][id][]" value="<?php echo $item['id'];?>">
+                               <input type="hidden" name="group[<?php echo $k; ?>][id]" value="<?php echo $item['id'];?>">
                                <div class="form-group">
                                    <ul class="sub-gallery">
                                        <?php
@@ -128,7 +128,7 @@
                </div>
            </div>
            <div class="panel-footer">
-               <a href="javascript:;" id="add-btn" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i> Thêm nhóm</a>
+               <a href="javascript:" id="add-btn" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-plus"></i> Thêm nhóm</a>
            </div>
        </div>
     </div>

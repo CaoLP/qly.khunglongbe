@@ -31,7 +31,7 @@ $(function () {
         if($('#get-gallery input:checked').length > 0){
             var template = '<li class="list-group-item" id="item-'+uuid+'">'
                 +'<div class="form-group">'
-                +'<label><a href="javascript:;" class="remove-group" data-target="item-'+uuid+'"><i class="fa fa-trash-o"></i></a>Tên nhóm</label>'
+                +'<label><a href="javascript:;" class="remove-group" data-target="#item-'+uuid+'"><i class="fa fa-trash-o"></i></a> Tên nhóm</label>'
                 +'<input class="form-control" name="group['+uuid+'][name]" value="'+group_name+'" placeholder="Tên nhóm">'
                 +'</div>'
                 +'<div class="form-group">'
@@ -51,5 +51,9 @@ $(function () {
             $('.product-group input[type=checkbox]').attr('checked','checked').attr('onclick','return false;');
         }
         $('#get-gallery').popup('hide');
+    });
+    $(document).on('click','.remove-group',function(){
+        var target = $(this).data('target');
+        $(target).remove();
     });
 });
