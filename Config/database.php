@@ -6,7 +6,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => 'demonsp3003',
+		'password' => '',
 		'database' => 'bexinhshop',
 		'encoding' => 'utf8'
 	);
