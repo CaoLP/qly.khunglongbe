@@ -164,7 +164,7 @@ class SettingsController extends AppController {
             $options = array('conditions' => array('Setting.' . $this->Setting->primaryKey => $id));
             $this->request->data = $this->Setting->find('first', $options);
         }
-        $parents = $this->Setting->ParentSetting->find('list',array('conditions'=>array('Setting.key <>'=>'temp')));
+        $parents = $this->Setting->ParentSetting->find('list',array('conditions'=>array('ParentSetting.key <>'=>'temp')));
         $this->set(compact('parents'));
     }
 

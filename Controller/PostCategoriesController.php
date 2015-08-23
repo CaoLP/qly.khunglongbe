@@ -48,6 +48,8 @@ class PostCategoriesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			if(empty($this->request->data['PostCategory']['slug']))
+				$this->request->data['PostCategory']['slug'] = $this->make_slug($this->request->data['PostCategory']['name'] );
 			$this->PostCategory->create();
 			if ($this->PostCategory->save($this->request->data)) {
 				$this->Session->setFlash(__('The post category has been saved.'), 'default', array('class' => 'alert alert-success'));
@@ -72,6 +74,8 @@ class PostCategoriesController extends AppController {
 			throw new NotFoundException(__('Invalid post category'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			if(empty($this->request->data['PostCategory']['slug']))
+				$this->request->data['PostCategory']['slug'] = $this->make_slug($this->request->data['PostCategory']['name'] );
 			if ($this->PostCategory->save($this->request->data)) {
 				$this->Session->setFlash(__('The post category has been saved.'), 'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));

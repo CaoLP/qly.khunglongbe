@@ -8,6 +8,13 @@ App::uses('AppController', 'Controller');
  */
 class ProvidersController extends AppController {
 
+
+	/**
+	 * Helpers
+	 *
+	 * @var array
+	 */
+	public $helpers = array('Media');
 /**
  * Components
  *

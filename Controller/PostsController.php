@@ -56,6 +56,8 @@ class PostsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			if(empty($this->request->data['Post']['slug']))
+				$this->request->data['Post']['slug'] = $this->make_slug($this->request->data['Post']['title'] );
 			$this->Post->create();
 			if ($this->Post->save($this->request->data)) {
 				$this->Session->setFlash(__('The post has been saved.'), 'default', array('class' => 'alert alert-success'));
@@ -82,6 +84,8 @@ class PostsController extends AppController {
 			throw new NotFoundException(__('Invalid post'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			if(empty($this->request->data['Post']['slug']))
+				$this->request->data['Post']['slug'] = $this->make_slug($this->request->data['Post']['title'] );
 			if ($this->Post->save($this->request->data)) {
 				$this->Session->setFlash(__('The post has been saved.'), 'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
