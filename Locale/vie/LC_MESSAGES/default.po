@@ -2077,35 +2077,35 @@ msgstr "Xóa thuộc tính sp"
 
 #: /ProductPromotes/add.ctp:5
 msgid "Add Product Promote"
-msgstr "Thêm mới khuyến mãi sp"
+msgstr "Thêm mới sản phẩm khuyến mãi"
 
 #: /ProductPromotes/add.ctp:10
 #: /ProductPromotes/edit.ctp:11
 #: /ProductPromotes/view.ctp:12
 msgid "List Product Promotes"
-msgstr "Danh sách khuyến mãi sp"
+msgstr "Danh sách sản phẩm khuyến mãi"
 
 #: /ProductPromotes/edit.ctp:5
 #: /ProductPromotes/view.ctp:10
 msgid "Edit Product Promote"
-msgstr "Cập nhật khuyến mãi sp"
+msgstr "Cập nhật sản phẩm khuyến mãi"
 
 #: /ProductPromotes/index.ctp:6
 msgid "Product Promotes"
-msgstr "Khuyến mãi sp"
+msgstr "Sản phẩm khuyến mãi"
 
 #: /ProductPromotes/index.ctp:11
 #: /ProductPromotes/view.ctp:13
 msgid "New Product Promote"
-msgstr "thêm mới khuyến mãi sp"
+msgstr "Thêm mới sản phẩm khuyến mãi"
 
 #: /ProductPromotes/view.ctp:5
 msgid "Product Promote"
-msgstr "Khuyến mãi sp"
+msgstr "Sản phẩm khuyến mãi"
 
 #: /ProductPromotes/view.ctp:11
 msgid "Delete Product Promote"
-msgstr "Xóa khuyến mãi sp"
+msgstr "Xóa sản phẩm khuyến mãi"
 
 #: /Products/add.ctp:5
 msgid "Add Product"

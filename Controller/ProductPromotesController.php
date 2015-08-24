@@ -23,6 +23,20 @@ class ProductPromotesController extends AppController {
  */
 	public function index() {
 		$this->ProductPromote->recursive = 0;
+		$promote_id = 0;
+		if(!$this->request->is("ajax")){
+			$promotes = $this->ProductPromote->Promote->find("all",array("conditions"=>array(),"recursive"=>-1,"order" => array("Promote.begin DESC")));
+			$promote_id = isset($promotes[0]["Promote"]["id"])? $promotes[0]["Promote"]["id"] : 0;
+		}else{
+			$this->layout = "ajax";
+			$promote_id = $this->request->data("promote_id");
+		}
+		$this->Paginator->settings = array(
+			"conditions" => array(
+				"promote_id" => $promote_id
+			)
+		);
+		$this->set(compact("promotes","promote_id"));
 		$this->set('productPromotes', $this->Paginator->paginate());
 	}
 

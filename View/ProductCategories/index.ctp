@@ -15,6 +15,7 @@
 		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>'.__('New Category'), array('controller' => 'categories', 'action' => 'add'), array('escape' => false)); ?> </li>
 		</ul>
     </div>
+
  <div class="col-md-12">
 	<?php echo $this->Session->flash(); ?>
 		<table cellpadding="0" cellspacing="0" class="table table-striped">
