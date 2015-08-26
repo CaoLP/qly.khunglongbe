@@ -50,9 +50,9 @@
 		</td>
 </tr>
 <tr>
-		<th><?php echo __('Description'); ?></th>
+		<th><?php echo __('Descriptions'); ?></th>
 		<td>
-			<?php echo h($post['Post']['description']); ?>
+			<?php echo h($post['Post']['descriptions']); ?>
 			&nbsp;
 		</td>
 </tr>

@@ -24,7 +24,7 @@
 						<th><?php echo $this->Paginator->sort('title'); ?></th>
 						<th><?php echo $this->Paginator->sort('slug'); ?></th>
 						<th><?php echo $this->Paginator->sort('excert'); ?></th>
-						<th><?php echo $this->Paginator->sort('description'); ?></th>
+						<th><?php echo $this->Paginator->sort('descriptions'); ?></th>
 						<th><?php echo $this->Paginator->sort('tags'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('created_by'); ?></th>
@@ -41,7 +41,7 @@
 						<td><?php echo h($post['Post']['title']); ?>&nbsp;</td>
 						<td><?php echo h($post['Post']['slug']); ?>&nbsp;</td>
 						<td><?php echo h($post['Post']['excert']); ?>&nbsp;</td>
-						<td><?php echo h($post['Post']['description']); ?>&nbsp;</td>
+						<td><?php echo h($post['Post']['descriptions']); ?>&nbsp;</td>
 						<td><?php echo h($post['Post']['tags']); ?>&nbsp;</td>
 						<td><?php echo h($post['Post']['created']); ?>&nbsp;</td>
 								<td>
