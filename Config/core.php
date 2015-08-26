@@ -364,3 +364,4 @@ Cache::config('_cake_model_', array(
 	'duration' => $duration
 ));
 Configure::write('Site.title','Shop bé xinh');
+Configure::write('Img.noImage', 'http://quanly.shopbexinhs.com/img/noimage.png');

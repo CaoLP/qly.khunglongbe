@@ -50,4 +50,17 @@ class AppHelper extends Helper {
             }
         }
     }
+    public function genTree($data, $base = ""){
+        $result = "<ul>";
+        foreach($data as $d){
+            $result .= "<li>";
+            $result .= "<span><i class=\"glyphicon glyphicon-star\"></i> ".$d['Category']['name']."</span> <a href=\"javascript:;\" data-id=\"".$d['Category']['id']."\"> Xem </a>";
+            if(count($d['ChildCategory'])>0){
+                $result .= $this->genTree($d['children'], $result);
+            }
+            $result .= "</li>";
+        }
+        $result.= "</ul>";
+        return $result;
+    }
 }

@@ -76,6 +76,7 @@ class MediaHelper extends AppHelper
         # We find the right file
         $pathinfo   = pathinfo(trim($file, '/'));
         $file       = $imageDir . trim($file, '/');
+        if (file_exists($file) && isset($pathinfo['dirname'])) {
         $output     = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '_' . $width . 'x' . $height . '.' . $pathinfo['extension'];
         if (!file_exists($imageDir . $output)) {
             # Setting defaults and meta
@@ -132,6 +133,9 @@ class MediaHelper extends AppHelper
             }
         }
         $output = str_replace('img/','',$output);
+        } else {
+            $output = Configure::read('Img.noImage');
+        }
         return $output;
     }
 }
