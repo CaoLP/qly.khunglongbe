@@ -1,3 +1,4 @@
+<?php $this->Html->url(array('add_promote'), array('inline' => false)); ?>
 <div class="panel-heading">
     <h3 class="panel-title">
         <a href="javascript:void(0);" class="toggle-sidebar">
@@ -7,29 +8,40 @@
 <div class="panel-body">
     <div class="col-md-12">
         <ul class="nav nav-pills nav-justified">
-                        <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>'.__('List Product Promotes'), array('action' => 'index'), array('escape' => false)); ?></li>
-            		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>'.__('List Products'), array('controller' => 'products', 'action' => 'index'), array('escape' => false)); ?> </li>
-		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>'.__('New Product'), array('controller' => 'products', 'action' => 'add'), array('escape' => false)); ?> </li>
-		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>'.__('List Promotes'), array('controller' => 'promotes', 'action' => 'index'), array('escape' => false)); ?> </li>
-		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>'.__('New Promote'), array('controller' => 'promotes', 'action' => 'add'), array('escape' => false)); ?> </li>
+            <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>' . __('List Product Promotes'), array('action' => 'index'), array('escape' => false)); ?></li>
+            <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>' . __('List Products'), array('controller' => 'products', 'action' => 'index'), array('escape' => false)); ?> </li>
+            <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>' . __('New Product'), array('controller' => 'products', 'action' => 'add'), array('escape' => false)); ?> </li>
+            <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-list"></span>' . __('List Promotes'), array('controller' => 'promotes', 'action' => 'index'), array('escape' => false)); ?> </li>
+            <li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>' . __('New Promote'), array('controller' => 'promotes', 'action' => 'add'), array('escape' => false)); ?> </li>
         </ul>
     </div>
-    <div class="col-md-12">
-        			<?php echo $this->Form->create('ProductPromote', array('role' => 'form')); ?>
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Danh mục sản phẩm
+            </div>
+            <div class="panel-body">
 
-        				<div class="form-group">
-					<?php echo $this->Form->input('product_id', array('class' => 'form-control', 'placeholder' => 'Product Id'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('promote_id', array('class' => 'form-control', 'placeholder' => 'Promote Id'));?>
-				</div>
-        				<div class="form-group">
-					<?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-default')); ?>
-				</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách sản phẩm khuyến mãi
+                <div>
+                    <select class="form-control" name="promote_id" id="promote_id">
+                        <option>ádasd</option>
+                        <option>ádasd</option>
+                        <option>ádasd</option>
+                        <option>ádasd</option>
+                    </select>
+                </div>
+            </div>
+            <div class="panel-body" id="product-list">
 
-			<?php echo $this->Form->end() ?>
-
-
+            </div>
+        </div>
     </div>
 </div>
 

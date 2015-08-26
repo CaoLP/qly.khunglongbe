@@ -70,8 +70,8 @@ class ProductPromotesController extends AppController {
 				$this->Session->setFlash(__('The product promote could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$promotes = $this->ProductPromote->Promote->find("all",array("conditions"=>array(),"recursive"=>-1,"order" => array("Promote.begin DESC")));
 		$products = $this->ProductPromote->Product->find('list');
-		$promotes = $this->ProductPromote->Promote->find('list');
 		$this->set(compact('products', 'promotes'));
 	}
 
