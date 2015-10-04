@@ -143,6 +143,20 @@ $(function () {
             }
         });
     }
+    if($('#product_list_form').length > 0){
+        $('#product_list_form').on('submit',function(e){
+            $.ajax({
+                url : $(this).attr('action'),
+                data : $(this).serializeArray(),
+                type : 'post',
+                success : function(response){
+                    alert('Lưu thành công');
+                }
+            });
+            e.preventDefault();
+            return false;
+        });
+    }
 });
 var addOption = function(id,name,target){
        var template =

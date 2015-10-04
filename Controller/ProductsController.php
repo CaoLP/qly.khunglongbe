@@ -31,6 +31,11 @@ class ProductsController extends AppController
 //            $this->Product->save($t);
 //        }
 
+        $categories = $this->Product->Category->generateTreeList(array('Category.name <>' => '0'), null, null, '░');
+        $categories[0] = '-- Chưa chọn --';
+        $providers = $this->Product->Provider->find('list');
+        $providers[0] = '-- Chưa chọn --';
+        $this->set(compact('providers', 'categories'));
         $this->Product->recursive = 0;
         $this->Paginator->settings = array(
             'contain' => array('Thumb'),
@@ -38,6 +43,15 @@ class ProductsController extends AppController
                 'Product.name <>' => '0'
             )
         );
+        if (isset($this->request->query['data']['keyword']) && $this->request->query['data']['keyword'] != '') {
+            $this->Paginator->settings['conditions']['Product.name'] = '%' . $this->request->query('data.keyword') . '%';
+        }
+        if (isset($this->request->query['data']['category_id']) && $this->request->query['data']['category_id'] != '') {
+            $this->Paginator->settings['conditions']['Product.category_id'] = $this->request->query('data.category_id');
+        }
+        if (isset($this->request->query['data']['provider_id']) && $this->request->query['data']['provider_id'] != '') {
+            $this->Paginator->settings['conditions']['Product.provider_id'] = $this->request->query('data.provider_id');
+        }
         $this->set('products', $this->Paginator->paginate());
     }
     public function ajax_index()
@@ -229,5 +243,23 @@ class ProductsController extends AppController
             $this->Session->setFlash(__('The product could not be deleted. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
         }
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function fast_category(){
+        $categories = $this->Product->Category->generateTreeList(null, null, null, '░░');
+        $providers = $this->Product->Provider->find('list');
+        $this->set(compact('providers', 'categories'));
+    }
+    public function save_many(){
+        if($this->request->data){
+            foreach($this->request->data as $k=>$d){
+                $this->request->data[$k]['slug'] = $this->make_slug($d['name']) . '-' . $d['id'];
+                $this->request->data[$k]['price'] = str_replace(' VNĐ','',str_replace(',','',$d['price']));
+                $this->request->data[$k]['retail_price'] = str_replace(' VNĐ','',str_replace(',','',$d['retail_price']));
+                $this->request->data[$k]['source_price'] = str_replace(' VNĐ','',str_replace(',','',$d['source_price']));
+                $d = $this->Product->save($this->request->data[$k]);
+            }
+        }
+        die;
     }
 }

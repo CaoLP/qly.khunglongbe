@@ -66,6 +66,8 @@ class PostsController extends AppController {
 				$this->Session->setFlash(__('The post could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$id = $this->Post->getNextAutoNumber($this->Post);
+		$this->request->data('Post.id',$id);
 		$postCategories = $this->Post->PostCategory->find('list');
 		$trackableCreators = $this->Post->TrackableCreator->find('list');
 		$trackableUpdaters = $this->Post->TrackableUpdater->find('list');

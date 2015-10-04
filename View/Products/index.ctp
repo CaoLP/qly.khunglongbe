@@ -11,7 +11,55 @@
         </ul>
     </div>
     <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading"><strong>Tìm kiếm</strong></div>
+            <div class="panel-body">
+                <form id="search">
+                    <div class="row">
+                        <?php echo $this->Form->hidden('box_search'); ?>
+                        <div class="col-lg-3">
+                            <?php echo $this->Form->input('keyword',
+                                array(
+                                    'label' => false,
+                                    'class' => 'form-control input-sm',
+                                    'placeholder' => 'Từ khóa hoặc mã sản phẩm',
+                                    'value' => $this->request->query('data.keyword')
+                                )
+                            ); ?>
+                        </div>
+                        <div class="col-lg-3">
+                            <?php echo $this->Form->input('category_id',
+                                array(
+                                    'label' => false,
+                                    'class' => 'form-control input-sm',
+                                    'empty' => '-- Tất cã --',
+                                    'value' => $this->request->query('data.category_id')
+                                )
+                            ); ?>
+                        </div>
+                        <div class="col-lg-3">
+                            <?php echo $this->Form->input('provider_id',
+                                array(
+                                    'label' => false,
+                                    'class' => 'form-control input-sm',
+                                    'empty' => '-- Tất cã --',
+                                    'value' => $this->request->query('data.provider_id')
+                                )
+                            ); ?>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="form-control btn btn-sm btn-success"><i
+                                    class="fa fa-search"></i> Tìm
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
         <?php echo $this->Session->flash(); ?>
+        <form action="<?php echo $this->Html->url(array('action'=>'save_many'))?>" id="product_list_form" method="post">
         <table cellpadding="0" cellspacing="0" class="table table-striped">
             <thead>
             <tr>
@@ -37,17 +85,81 @@
                         ?>&nbsp;</td>
                     <td><?php echo h($product['Product']['sku']); ?>&nbsp;</td>
                     <td>
-                        <?php echo $this->Html->link($product['Provider']['name'], array('controller' => 'providers', 'action' => 'view', $product['Provider']['id'])); ?>
+                        <?php echo $this->Form->hidden($product['Product']['id'].'.id',
+                            array(
+                                'value' => $product['Product']['id'],
+                            )
+                        ); ?>
+                        <?php echo $this->Form->input($product['Product']['id'].'.provider_id',
+                            array(
+                                'label' => false,
+                                'class' => 'form-control input-sm',
+                                'value' => $product['Provider']['id'],
+                                'empty' => '-- Chưa chọn --',
+                            )
+                        ); ?>
                     </td>
                     <td>
-                        <?php echo $this->Html->link($product['Category']['name'], array('controller' => 'categories', 'action' => 'view', $product['Category']['id'])); ?>
+                        <?php echo $this->Form->input($product['Product']['id'].'.category_id',
+                            array(
+                                'label' => false,
+                                'class' => 'form-control input-sm',
+                                'value' => $product['Category']['id'],
+                                'empty' => '-- Chưa chọn --',
+                            )
+                        ); ?>
                     </td>
-                    <td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
-                    <td><?php echo h($product['Product']['slug']); ?>&nbsp;</td>
-                    <td class="currency"><?php echo $this->App->format_money(h($product['Product']['price'])); ?>&nbsp;</td>
-                    <td class="currency"><?php echo $this->App->format_money(h($product['Product']['retail_price'])); ?>&nbsp;</td>
-                    <td class="currency"><?php echo $this->App->format_money(h($product['Product']['source_price'])); ?>&nbsp;</td>
-                    <td><?php echo h($product['Product']['status']); ?>&nbsp;</td>
+                    <td>
+                        <?php echo $this->Form->input($product['Product']['id'].'.name',
+                            array(
+                                'label' => false,
+                                'type' => 'textarea',
+                                'class' => 'form-control input-sm',
+                                'value' => $product['Product']['name']
+                            )
+                        );
+                        ?>
+                    </td>
+                    <td><?php echo h($product['Product']['slug']); ?></td>
+                    <td class="currency">
+                        <?php echo $this->Form->input($product['Product']['id'].'.price',
+                            array(
+                                'label' => false,
+                                'type' => 'text',
+                                'class' => 'form-control input-sm currency',
+                                'placeholder' => 'Retail Price',
+                                'value' => $product['Product']['price']
+                            )
+                        );
+                        ?>
+                    </td>
+                    <td class="currency">
+                        <?php echo $this->Form->input($product['Product']['id'].'.retail_price',
+                            array(
+                                'label' => false,
+                                'type' => 'text',
+                                'class' => 'form-control input-sm currency',
+                                'placeholder' => 'Retail Price',
+                                'value' => $product['Product']['retail_price']
+                            )
+                        );
+                        ?>
+                    </td>
+                    <td class="currency">
+                        <?php echo $this->Form->input($product['Product']['id'].'.source_price',
+                            array(
+                                'label' => false,
+                                'type' => 'text',
+                                'class' => 'form-control input-sm currency',
+                                'placeholder' => 'Retail Price',
+                                'value' => $product['Product']['source_price']
+                            )
+                        );
+                        ?>
+                    </td>
+                    <td>
+                        <?php echo $this->Form->input($product['Product']['id'].'.status', array('label' => false, 'class' => 'form-control input-sm', 'value' => $product['Product']['status'])); ?>
+                    </td>
                     <td class="actions">
                         <?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $product['Product']['id']), array('escape' => false)); ?>
                         <?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $product['Product']['id']), array('escape' => false)); ?>
@@ -57,7 +169,9 @@
             <?php endforeach; ?>
             </tbody>
         </table>
-
+        <button class="btn btn-success"> Lưu lại </button>
+            <hr>
+        </form>
         <p>
             <small><?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?></small>
         </p>
