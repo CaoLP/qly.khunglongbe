@@ -16,34 +16,43 @@
 		<li><?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>'.__('New Product'), array('controller' => 'products', 'action' => 'add'), array('escape' => false)); ?> </li>
         </ul>
     </div>
-    <div class="col-md-12">
-        			<?php echo $this->Form->create('Category', array('role' => 'form')); ?>
+	<div class="col-md-12">
+		<?php echo $this->Form->create('Category', array('role' => 'form')); ?>
 
-        				<div class="form-group">
-					<?php echo $this->Form->input('parent_id', array('class' => 'form-control', 'placeholder' => 'Parent Id'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('name', array('class' => 'form-control', 'placeholder' => 'Name'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('descriptions', array('class' => 'form-control', 'placeholder' => 'Descriptions'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('excerpt', array('class' => 'form-control', 'placeholder' => 'Excerpt'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('images', array('class' => 'form-control', 'placeholder' => 'Images'));?>
-				</div>
-				<div class="form-group">
-					<?php echo $this->Form->input('status', array('class' => 'form-control', 'placeholder' => 'Status'));?>
-				</div>
-        				<div class="form-group">
-					<?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-default')); ?>
-				</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('id', array('class' => 'form-control', 'placeholder' => 'Id')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('parent_id', array('class' => 'form-control','empty'=>__('__Select parent__'), 'placeholder' => 'Parent Id')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('name', array('class' => 'form-control', 'placeholder' => 'Name')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('slug', array('class' => 'form-control', 'placeholder' => 'Slug')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('icon', array('class' => 'form-control ic_cm', 'placeholder' => 'Icon')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('descriptions', array('class' => 'form-control', 'placeholder' => 'Descriptions')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('excerpt', array('class' => 'form-control', 'placeholder' => 'Excerpt')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->input('status', array('class' => 'form-control', 'placeholder' => 'Status')); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Media->iframe('Category', $this->request->data['Category']['id']); ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-default')); ?>
+		</div>
 
-			<?php echo $this->Form->end() ?>
+		<?php echo $this->Form->end() ?>
 
 
-    </div>
+	</div>
 </div>
 

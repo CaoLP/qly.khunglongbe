@@ -6,6 +6,7 @@
  * Time: 6:38 AM
  */
 App::uses('Helper', 'View');
+
 class MenuHelper extends Helper
 {
     public function loopChildMenu($data, $parent_name, $prefix = '__')
@@ -27,8 +28,68 @@ class MenuHelper extends Helper
                     <?php echo $this->_View->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $child['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $child['id'])); ?>
                 </td>
             </tr>
-        <?php
+            <?php
         endforeach;
+    }
+
+    public function gennerateChildList_TH(
+        $data,
+        $fields,
+        $field_names,
+        $parent = 'Category',
+        $child = 'children',
+        $icon_class = 'ic_cm',
+        $sub = false,
+        $prefix = '&rarr;'
+    )
+    {
+        $html = '<table cellpadding="0" cellspacing="0" class="table table-striped">';
+        $html .= '<thead><tr>';
+        foreach ($field_names as $name):
+            $html .= '<td>';
+            $html .= __($name);
+            $html .= '</td>';
+        endforeach;
+        $html .= '<td class="actions"></td>';
+        $html .= '</tr></thead>';
+        $html .= '<tbody>';
+        $html .= $this->gennerateChildList_TD($data, $fields, $parent, $child, $icon_class, $sub, $prefix);
+        $html .= '</tbody>';
+        $html .= '</table>';
+
+        return $html;
+    }
+
+    public function gennerateChildList_TD($data, $fields, $parent, $child = 'children', $icon_class = 'ic_cm', $sub = false, $prefix = '__')
+    {
+        $html = '';
+        foreach ($data as $d):
+            $html .= '<tr>';
+            foreach ($fields as $k => $field) {
+                if ($field == 'name') {
+                    $html .= '<td>' . $this->_View->Html->link(($sub ? $prefix : '') .
+                            h($d[$parent][$field]),
+                            array('action' => 'edit', $d[$parent]['id']), array('escape' => false))
+                        . '</td>';
+                } else {
+                    $html .= '<td  class="' . ($field == 'icon' ? $icon_class : '') . '">' . h($d[$parent][$field]) . '</td>';
+                }
+            }
+            $html .= '<td class="actions">';
+            $html .= $this->_View->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $d[$parent]['id']), array('escape' => false));
+            $html .= '&nbsp;';
+            $html .= $this->_View->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $d[$parent]['id']), array('escape' => false));
+            $html .= '&nbsp;';
+            $html .= $this->_View->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $d[$parent]['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $d[$parent]['id']));
+            $html .= '</td>';
+            $html .= '</tr>';
+            if (count($d[$child]) > 0) {
+                $new_prefix = $prefix;
+                if ($sub) $new_prefix .= $prefix;
+                $html .= $this->gennerateChildList_TD($d[$child], $fields, $parent, $child, $icon_class, true, $new_prefix);
+            }
+        endforeach;
+        return $html;
     }
 
     public function createMenu($menu)
@@ -39,11 +100,12 @@ class MenuHelper extends Helper
             if (!$submenu):
                 ?>
                 <li>
-                    <a href="<?php echo $item['AdminMenu']['url']; ?>"  class="list-group-item <?php if ($item['AdminMenu']['url'] == $this->request->here) echo 'active'; ?>"><i
+                    <a href="<?php echo $item['AdminMenu']['url']; ?>"
+                       class="list-group-item <?php if ($item['AdminMenu']['url'] == $this->request->here) echo 'active'; ?>"><i
                             class="<?php echo $item['AdminMenu']['icon']; ?>"></i><?php echo $item['AdminMenu']['name']; ?>
                     </a>
                 </li>
-            <?php
+                <?php
             else:
                 $active = '';
                 $in = '';
@@ -51,22 +113,22 @@ class MenuHelper extends Helper
                     <a href="#sub' . $item['AdminMenu']['id'] . '" class="list-group-item {active}" data-toggle="collapse">
                         <i class="' . $item['AdminMenu']['icon'] . '"></i>' . $item['AdminMenu']['name'] . ' <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </li>';
-                if($item['AdminMenu']['url'] == $this->request->here){
+                if ($item['AdminMenu']['url'] == $this->request->here) {
                     $in = 'in';
                     $active = 'active';
                 }
                 $html .= '<li class="collapse {flag}" id="sub' . $item['AdminMenu']['id'] . '">
-                    <a href="' . Router::url($item['AdminMenu']['url']) . '" class="list-group-item '.$active.'">
+                    <a href="' . Router::url($item['AdminMenu']['url']) . '" class="list-group-item ' . $active . '">
                     <i class="' . $item['AdminMenu']['icon'] . '"></i>' . $item['AdminMenu']['name'] . '</a>';
 
                 foreach ($item['ChildAdminMenu'] as $child):
                     $subactive = '';
                     if ($child['url'] == $this->request->here) {
-                        if($active == '') $active = 'active';
+                        if ($active == '') $active = 'active';
                         $subactive = 'active';
                         $in = 'in';
                     }
-                    $html .= '<a href="' .  Router::url($child['url']) . '"
+                    $html .= '<a href="' . Router::url($child['url']) . '"
                        class="list-group-item ' . $subactive . '"><i
                             class="' . $child['icon'] . '"></i>' . $child['name'] . '</a>';
                 endforeach;

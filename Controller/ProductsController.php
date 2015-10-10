@@ -104,29 +104,52 @@ class ProductsController extends AppController
      */
     public function add()
     {
-        $temp = array(
-            'Product' => array(
-                'sku' => '',
-                'provider_id' => '0',
-                'name' => '0',
-                'price' => '0',
-                'retail_price' => '',
-                'source_price' => '',
-                'excert' => '',
-                'descriptions' => '',
-                'status' => '0',
-                'category_id' => '0'
-            )
-        );
-        if(isset($this->request->query['media_id']))
-            $temp['Product']['media_id'] = $this->request->query['media_id'];
+        if ($this->request->is(array('post', 'put'))) {
+            if(isset($this->request->query['media_id'])) {
+                $this->request->data('Product.media_id', $this->request->query['media_id']);
+            }
+            $this->request->data['Product']['price'] = str_replace(',','',$this->request->data['Product']['price']);
+            $this->request->data['Product']['price'] = str_replace(' VNĐ','',$this->request->data['Product']['price']);
+            $this->request->data['Product']['retail_price'] = str_replace(',','',$this->request->data['Product']['retail_price']);
+            $this->request->data['Product']['retail_price'] = str_replace(' VNĐ','',$this->request->data['Product']['retail_price']);
+            $this->request->data['Product']['source_price'] = str_replace(',','',$this->request->data['Product']['source_price']);
+            $this->request->data['Product']['source_price'] = str_replace(' VNĐ','',$this->request->data['Product']['source_price']);
+            if(empty($this->request->data['Product']['sku']) || $this->request->data['Product']['sku'] == ''){
+                $this->request->data['Product']['sku'] = $this->request->data['Product']['id'];
+            }
+            if(empty($this->request->data['Product']['slug']))
+                $this->request->data['Product']['slug'] = $this->make_slug($this->request->data['Product']['name']) .'-'.$this->request->data['Product']['id'];
 
-        $data = $this->Product->find('first',array('conditions'=>array('Product.sku'=>'')));
-        if($data){
-            $id = $data['Product']['id'];
-        }else{
-            $this->Product->save($temp);
-            $id = $this->Product->id;
+            if ($this->Product->save($this->request->data)) {
+                if(!isset($this->request->data['ProductOption'])){
+                    $this->request->data['ProductOption'] = array();
+                }
+                $product_id = $this->Product->id;
+                $this->Product->ProductOption->updateOptions($this->request->data['ProductOption'], $product_id);
+
+                if(isset($this->request->data['group'])){
+                    $this->Product->ProductSubitem->updateSubitem($this->request->data['group'], $product_id);
+                }
+
+                $this->Session->setFlash(__('The product has been saved.'), 'default', array('class' => 'alert alert-success'));
+                if(isset($this->request->query['media_id'])){
+                    return $this->redirect(array('controller'=>'medias','action' => 'fast_import', 'Product'));
+                }
+                if($this->request->data['submit'] == 'save'){
+                    return $this->redirect(array('action' => 'index'));
+                }else{
+                    $this->request->data = array();
+                    return $this->redirect(array('action' => 'add'));
+                }
+            } else {
+                $this->Session->setFlash(__('The product could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
+            }
+        }
+        $id = $this->Product->getNextAutoNumber($this->Product);
+        $this->request->data('Product.id',$id);
+
+        if(isset($this->request->query['media_id'])){
+            $this->request->data('Product.media_id',$this->request->query['media_id']);
             $this->loadModel('Media');
             $this->Media->save(array(
                     'Media' => array(
@@ -136,23 +159,13 @@ class ProductsController extends AppController
                 )
             );
         }
-        if(isset($this->request->query['media_id']))
-            $this->redirect(Router::url(array('action'=>'edit',$id,'?'=>array('media_id'=>$this->request->query['media_id']))));
-        else
-            $this->redirect(Router::url(array('action'=>'edit',$id)));
-//        if ($this->request->is('post')) {
-//            $this->Product->create();
-//            debug($this->request->data);die;
-//            if ($this->Product->save($this->request->data)) {
-//                $this->Session->setFlash(__('The product has been saved.'), 'default', array('class' => 'alert alert-success'));
-//                return $this->redirect(array('action' => 'index'));
-//            } else {
-//                $this->Session->setFlash(__('The product could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
-//            }
-//        }
-//        $providers = $this->Product->Provider->find('list');
-//        $categories = $this->Product->Category->find('list');
-//        $this->set(compact('providers', 'categories'));
+        $providers = $this->Product->Provider->find('list');
+        $categories = $this->Product->Category->find('list');
+        $product_options = $this->Product->ProductOption->Option->find('all');
+        $option_groups = $this->Product->ProductOption->Option->OptionGroup->find('list');
+        $option_cats = $this->Product->ProductOption->Option->OptionCat->find('list');
+        $product_options = Set::combine($product_options,'{n}.Option.id','{n}','{n}.OptionGroup.name');
+        $this->set(compact('providers', 'categories','product_options','option_cats','option_groups'));
     }
 
     /**

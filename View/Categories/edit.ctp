@@ -33,6 +33,9 @@
             <?php echo $this->Form->input('slug', array('class' => 'form-control', 'placeholder' => 'Slug')); ?>
         </div>
         <div class="form-group">
+            <?php echo $this->Form->input('icon', array('class' => 'form-control ic_cm', 'placeholder' => 'Icon')); ?>
+        </div>
+        <div class="form-group">
             <?php echo $this->Form->input('descriptions', array('class' => 'form-control', 'placeholder' => 'Descriptions')); ?>
         </div>
         <div class="form-group">
